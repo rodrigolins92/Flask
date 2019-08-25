@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <title>{% block title %}Printexpress - {% endblock %}</title>
+  </head>
+  <body>
+    
+  	<h1 class="text-center">Printexpress</h1>
+
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('index') }}">Index</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('pedidos') }}">Adicionar pedido</a>
+      </li>
+      <li class="nav-item">
+        {% if current_user.is_authenticated %}
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout de {{ current_user.nome }}</a>
+        {% else %}
+          <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+      </li>
+    </ul>
+
+    <div class="alert">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="container col-md-3">
+            <ul class='list-group'>
+            {% for message in messages %}
+              <li class="text-center list-group-item list-group-item-warning">
+                {{ message }}
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    {% block content %}
+    {% endblock %}
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  </body>
+</html>
