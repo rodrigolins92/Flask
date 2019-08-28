@@ -9,7 +9,7 @@ class LoginForm(FlaskForm):
 
 class PedidoForm(FlaskForm):
 	descricao = TextAreaField("descricao")
-	data_pedido = DateField(format='%Y-%m-%d')
+	data_pedido = DateField(format='%d-%m-%Y')
 	quantidade = IntegerField()
 	preco = DecimalField(places=2)
 	status_conclusao = BooleanField()

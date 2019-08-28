@@ -18,7 +18,7 @@
 
 			<div class="form-group col-md-4">
 				<label>Data Pedido</label>
-				{{ form.data_pedido(class="form-control", placeholder="YYYY-MM-DD") }}
+				{{ form.data_pedido(class="form-control", placeholder="YYYY-MM-DD", id="datalogin", onkeyup="makeDate('datalogin')") }}
 			</div>
 
 			<div class="form-group col-md-4">
@@ -49,5 +49,6 @@
 
 </div>
 
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 
 {% endblock %}

@@ -39,7 +39,7 @@ class Pedido(db.Model):
 
 	id = db.Column(db.Integer, primary_key=True)
 	descricao = db.Column(db.Text)
-	data_pedido = db.Column(db.DateTime, server_default=func.now())
+	data_pedido = db.Column(db.Date, server_default=func.now())
 	quantidade = db.Column(db.Integer)
 	preco = db.Column(db.Float)
 	status_conclusao = db.Column(db.Boolean)
