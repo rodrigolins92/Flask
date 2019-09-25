@@ -1,4 +1,4 @@
-from flask import render_template, flash, redirect, url_for
+from flask import render_template, flash, redirect, url_for, session
 from flask_login import login_user, logout_user, login_required
 from app import app, db, lm
 
@@ -56,6 +56,7 @@ def login():
 	return render_template('login.html', form=form)
 
 @app.route("/logout")
+@login_required
 def logout():
 	logout_user()
 	flash("Usuário Deslogado")
@@ -78,3 +79,27 @@ def pedidos():
 		flash("Pedido adicionado com sucesso!!")
 
 	return render_template('pedidos.html', form=form)
+
+
+@app.route("/visualizar", methods=["GET", "POST"])
+@login_required
+def visualizar():
+	pedidos_ativos = Pedido.query.filter_by(status_conclusao=False).all()
+	pedidos_concluidos = Pedido.query.filter_by(status_conclusao=True).all()
+	return render_template('visualizar.html', pedidos_ativos=pedidos_ativos, pedidos_concluidos=pedidos_concluidos)
+
+@app.route('/visualizar/complete/<id>')
+@login_required
+def complete(id):
+    pedido = Pedido.query.filter_by(id=int(id)).first_or_404()
+    pedido.status_conclusao = True
+    db.session.commit()
+    return redirect(url_for('visualizar'))
+
+@app.route("/visualizar/delete/<id>")
+@login_required
+def delete(id):
+    pedido = Pedido.query.filter_by(id=int(id)).first_or_404()
+    db.session.delete(pedido)
+    db.session.commit()
+    return redirect(url_for('visualizar'))
