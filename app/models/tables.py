@@ -33,7 +33,7 @@ class Usuario(db.Model):
 		self.nome = nome
 	
 	def __repr__(self):
-		return "<Usuario %r>" % self.username
+		return "<Usuario: %r>" % self.username
 
 class Pedido(db.Model):
 
@@ -54,4 +54,23 @@ class Pedido(db.Model):
 		self.status_conclusao = status_conclusao
 
 	def __repr__(self):
-		return "<Pedido %r>" % self.descricao
+		return "<Pedido: %r>" % self.descricao
+
+class Estoque(db.Model):
+
+	__tablename__ = "estoque"
+
+	id = db.Column(db.Integer, primary_key=True)
+	nome_item = db.Column(db.String)
+	quantidade_estoque = db.Column(db.Integer)
+	quantidade_minimo = db.Column(db.Integer)
+	data_atualizacao = db.Column(db.DateTime, server_default=func.now())
+
+	def __init__(self, nome_item, quantidade_estoque, quantidade_minimo, data_atualizacao):
+		self.nome_item = nome_item
+		self.quantidade_estoque = quantidade_estoque
+		self.quantidade_minimo = quantidade_minimo
+		self.data_atualizacao = data_atualizacao
+
+	def __repr__(self):
+		return "<Item: %r>" % self.nome_item

@@ -40,6 +40,8 @@ def load_user(id):
 def index():
 	return render_template('index.html')
 
+#Iniciando parte de login/logoff
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
 	form = LoginForm()
@@ -61,6 +63,8 @@ def logout():
 	logout_user()
 	flash("Usuário Deslogado")
 	return redirect(url_for("index"))
+
+#Iniciando parte de pedidos
 
 @app.route("/pedidos", methods=["GET", "POST"])
 @login_required
@@ -103,3 +107,54 @@ def delete(id):
     db.session.delete(pedido)
     db.session.commit()
     return redirect(url_for('visualizar'))
+
+#Iniciando parte de controle de estoque
+
+@app.route('/estoque')
+@login_required
+def estoque():
+    estoque = Estoque.query.order_by(Estoque.id).all()
+    return render_template('estoque.html', estoque=estoque)
+
+@app.route('/estoque/adicionar', methods=["GET", "POST"])
+@login_required
+def adicionarEstoque():
+	form = EstoqueForm()
+	if form.validate_on_submit():
+
+		i = Estoque(form.nome_item.data, 
+			form.quantidade_estoque.data, 
+			form.quantidade_minimo.data, 
+			form.data_atualizacao.data)
+
+		db.session.add(i)
+		db.session.commit()
+		flash("Item adicionado com sucesso!!")
+
+	return render_template('adicionar_estoque.html', form=form)
+
+@app.route('/estoque/atualizar/<id>', methods=["GET", "POST"])
+@login_required
+def atualizarItem(id):
+	item = Estoque.query.filter_by(id=int(id)).first()
+	form = EstoqueForm()
+	if form.validate_on_submit():
+
+		
+		item.nome_item = form.nome_item.data
+		item.quantidade_estoque = form.quantidade_estoque.data
+		item.quantidade_minimo = form.quantidade_minimo.data
+		item.data_atualizacao = form.data_atualizacao.data
+		
+
+		i = Estoque(item.nome_item, 
+			item.quantidade_estoque, 
+			item.quantidade_minimo, 
+			item.data_atualizacao)
+
+		db.session.commit()
+		flash("Atualização concluída..")
+
+		return redirect(url_for('estoque'))
+
+	return render_template('atualizar_estoque.html', form=form, item=item)

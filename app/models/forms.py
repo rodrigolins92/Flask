@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import *
 from wtforms.validators import DataRequired
-from datetime import date
+from datetime import date, datetime
 
 
 class LoginForm(FlaskForm):
@@ -12,8 +12,16 @@ class LoginForm(FlaskForm):
 
 class PedidoForm(FlaskForm):
 
-	descricao = TextAreaField("descricao")
+	servico = StringField("servico", validators=[DataRequired()])
+	observacao = TextAreaField("observacao")
 	data_pedido = DateField(default=date.today())
 	quantidade = IntegerField()
 	preco = DecimalField(places=2)
 	status_conclusao = BooleanField()
+
+class EstoqueForm(FlaskForm):
+
+	nome_item = StringField("nome_item", validators=[DataRequired()])
+	quantidade_estoque = IntegerField()
+	quantidade_minimo = IntegerField()
+	data_atualizacao = DateTimeField(default=datetime.now())
