@@ -4,16 +4,27 @@
 
 {% block content %}
 
-<div class="container col-md-9 mt-4">
+<div class="container col-md-4 mt-4">
 
 	<h3 class="text-center">Adicionar Pedido</h3>
 
 	<form action="" method="POST">
 
 		{{ form.csrf_token }}
-		<div class="form-group">
-			<label>Descrição</label>
-			{{ form.descricao(class="form-control") }}
+
+		<div class="row mt-5">
+			<div class="col-md-5">
+				<div class="form-group">
+				    <label>Serviço</label>
+				    {{ form.servico(class="custom-select custom-select-md mb-3") }}
+					</div>
+			</div>
+			<div class="col-md-7">
+				<div class="form-group">
+					<label>Observação</label>
+					{{ form.observacao(class="form-control") }}
+				</div>
+			</div>
 		</div>
 
 		<div class="form-row">

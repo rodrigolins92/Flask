@@ -4,27 +4,38 @@
 
 {% block content %}
 
-<div class="container">
-	<form>
-		<div class="container">
-			<div class="row">
-				{% for item in estoque %}
-					<div class="col-sm-8 mb-4">
-					    <div class="card">
-					      	<div class="card-body">
-						        <h5 class="card-title text-center">Item {{item.id}}</h5>
-						        <p class="card-text"><span><h6>Nome: </h6></span>{{item.nome_item}}</p>
-						        <p>Quantidade em estoque: {{item.quantidade_estoque}}</p>
-						        <p>Quantidade mínima: {{item.quantidade_minimo}}</p>
-						        <p>Data de atualização: {{item.data_atualizacao}}</p>
-					        	<a class="btn btn-primary" href="{{ url_for('atualizarItem', id=item.id) }}">Atualizar</a>
-					      	</div>
-					    </div>
-					</div>
-				{% endfor %}
-			</div>
-		</div>
-	</form>
+<div class="container mt-5">
+	<table class="table table-sm">
+		<thead>
+		  	<tr>
+			    <th>#</th>
+			    <th>Nome</th>
+			    <th>Quantidade em estoque</th>
+			    <th>Quantidade mínima</th>
+			    <th>Data de atualização</th>
+			    <th></th>
+		    </tr>
+		</thead>
+	 	<tbody>
+	 		{% for item in estoque %}
+	 			{% if (item.quantidade_estoque / item.quantidade_minimo) < 1.2 %}
+		 			<tr class="table-danger">
+		 		{% else %}
+		 			<tr>
+		 		{% endif %}
+				    <td>{{item.id}}</td>
+				    <td>{{item.nome_item}}</td>
+				    <td>{{item.quantidade_estoque}}</td>
+				    <td>{{item.quantidade_minimo}}</td>
+				    <td>{{item.data_atualizacao}}</td>
+				    <td>
+				   		<a class="btn btn-primary btn-sm" href="{{ url_for('atualizarItem', id=item.id) }}">Atualizar</a>
+				   		<a class="btn btn-danger btn-sm" href="{{ url_for('deleteItem', id=item.id) }}">Excluir</a>
+				   	</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 </div>
 
 {% endblock %}

@@ -40,14 +40,16 @@ class Pedido(db.Model):
 	__tablename__ = "pedidos"
 
 	id = db.Column(db.Integer, primary_key=True)
-	descricao = db.Column(db.Text)
+	servico = db.Column(db.String)
+	observacao = db.Column(db.Text)
 	data_pedido = db.Column(db.Date, server_default=func.now())
 	quantidade = db.Column(db.Integer)
 	preco = db.Column(db.Float)
 	status_conclusao = db.Column(db.Boolean)
 
-	def __init__(self, descricao, data_pedido, quantidade, preco, status_conclusao):
-		self.descricao = descricao
+	def __init__(self, servico, observacao, data_pedido, quantidade, preco, status_conclusao):
+		self.servico = servico
+		self.observacao = observacao
 		self.data_pedido = data_pedido
 		self.quantidade = quantidade
 		self.preco = preco

@@ -12,7 +12,13 @@ class LoginForm(FlaskForm):
 
 class PedidoForm(FlaskForm):
 
-	servico = StringField("servico", validators=[DataRequired()])
+	servico = SelectField("servico", choices=[('-- Selecione --', '-- Selecione --'),
+												('Cópia preto e branco', 'Cópia preto e branco'), 
+												('Cópia colorida', 'Cópia colorida'), 
+												('Encadernação', 'Encadernação'), 
+												('Plastificação', 'Plastificação'), 
+												('Plotagem', 'Plotagem'), 
+												('Outros', 'Outros')])
 	observacao = TextAreaField("observacao")
 	data_pedido = DateField(default=date.today())
 	quantidade = IntegerField()

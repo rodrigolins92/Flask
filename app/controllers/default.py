@@ -50,7 +50,7 @@ def login():
 		if user and user.password == form.password.data:
 			login_user(user)
 			flash("Usuário logado")
-			return redirect(url_for("pedidos"))
+			return redirect(url_for("index"))
 		else:
 			flash("Login inválido")
 	#else:
@@ -72,7 +72,8 @@ def pedidos():
 	form = PedidoForm()
 	if form.validate_on_submit():
 
-		i = Pedido(form.descricao.data, 
+		i = Pedido(form.servico.data,
+			form.observacao.data, 
 			form.data_pedido.data, 
 			form.quantidade.data, 
 			form.preco.data, 
@@ -114,6 +115,7 @@ def delete(id):
 @login_required
 def estoque():
     estoque = Estoque.query.order_by(Estoque.id).all()
+
     return render_template('estoque.html', estoque=estoque)
 
 @app.route('/estoque/adicionar', methods=["GET", "POST"])
@@ -139,14 +141,13 @@ def atualizarItem(id):
 	item = Estoque.query.filter_by(id=int(id)).first()
 	form = EstoqueForm()
 	if form.validate_on_submit():
-
 		
 		item.nome_item = form.nome_item.data
 		item.quantidade_estoque = form.quantidade_estoque.data
 		item.quantidade_minimo = form.quantidade_minimo.data
 		item.data_atualizacao = form.data_atualizacao.data
-		
 
+		
 		i = Estoque(item.nome_item, 
 			item.quantidade_estoque, 
 			item.quantidade_minimo, 
@@ -158,3 +159,11 @@ def atualizarItem(id):
 		return redirect(url_for('estoque'))
 
 	return render_template('atualizar_estoque.html', form=form, item=item)
+
+@app.route("/estoque/delete/<id>")
+@login_required
+def deleteItem(id):
+    item = Estoque.query.filter_by(id=int(id)).first_or_404()
+    db.session.delete(item)
+    db.session.commit()
+    return redirect(url_for('estoque'))

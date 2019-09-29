@@ -13,7 +13,7 @@
 		<div class="row">
 			<div class="form-group col-md-3">
 				<label>Atualizar nome</label>
-				{{ form.nome_item(class="form-control", default=item.nome_item) }}
+				{{ form.nome_item(class="form-control", value=item.nome_item) }}
 			</div>
 		</div>
 
@@ -26,19 +26,19 @@
 
 			<div class="form-group col-md-4">
 				<label>Quantidade em Estoque</label>
-				{{ form.quantidade_estoque(class="form-control") }}
+				{{ form.quantidade_estoque(class="form-control", value=item.quantidade_estoque) }}
 			</div>
 
 			<div class="form-group col-md-4">
 				<label>Quantidade Mínima</label>
-				{{ form.quantidade_minimo(class="form-control") }}
+				{{ form.quantidade_minimo(class="form-control", value=item.quantidade_minimo) }}
 			</div>
 
 		</div>
 
-		<button type="submit" class="btn btn-dark">Adicionar Item</button>
+		<button type="submit" class="btn btn-dark">Atualizar</button>
 		{% if current_user.is_authenticated %}
-        <a class="text-light btn btn-primary" href="{{ url_for('estoque') }}">Novo / Limpar</a>
+        <a class="text-light btn btn-primary" href="{{ url_for('estoque') }}">Voltar</a>
       	{% endif %}
 		<!-- <button type="reset" class="btn btn-danger">Limpar</button> -->
 	</form>

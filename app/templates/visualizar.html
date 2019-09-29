@@ -4,50 +4,51 @@
 
 {% block content %}
 
-<form>
-	<div class="container">
-		<div class="row">
-			{% for item in pedidos_ativos %}
-				<div class="col-sm-6 mb-4">
-				    <div class="card">
-				      	<div class="card-body">
-					        <h5 class="card-title text-center">Pedido {{item.id}}</h5>
-					        <p class="card-text"><span><h6>Descrição: </h6></span>{{item.descricao}}</p>
-					        <p>Preço: R${{item.preco}}</p>
-					        <p>Quantidade: {{item.quantidade}}</p>
-					        <p>Data: {{item.data_pedido}}</p>
-					        <p>Não concluído</p>
-				        	<a class="btn btn-primary" href="{{ url_for('complete', id=item.id) }}">Concluir</a>
-				      	</div>
-				    </div>
-				</div>
-			{% endfor %}
-		</div>
-		<div class="row">
-			{% for item in pedidos_concluidos %}
-				<div class="col-sm-6 mb-4">
-				    <div class="card">
-				      	<div class="card-body">
-					        <h5 class="card-title text-center">Pedido {{item.id}}</h5>
-					        <p class="card-text"><span><h6>Descrição: </h6></span>{{item.descricao}}</p>
-					        <p>Preço: R${{item.preco}}</p>
-					        <p>Quantidade: {{item.quantidade}}</p>
-					        <p>Data: {{item.data_pedido}}</p>
-				        	<p>Concluído</p>
-				        	<a class="btn btn-danger" href="{{ url_for('delete', id=item.id) }}">Excluir</a>					        
-				      	</div>
-				    </div>
-				</div>
-			{% endfor %}
-		</div>
-	</div>
-</form>
-
-<!-- 		form.descricao.data, 
-			form.data_pedido.data, 
-			form.quantidade.data, 
-			form.preco.data, 
-			form.status_conclusao.data -->
-
+<div class="container mt-5">
+	<table class="table">
+		<thead>
+		  	<tr>
+			    <th>#</th>
+			    <th>Serviço</th>
+			    <th>Observação</th>
+			    <th>Preço</th>
+			    <th>Quantidade</th>
+			    <th>Data</th>
+			    <th class="text-center">Status</th>
+		    </tr>
+		</thead>
+		 	<tbody>
+		 		{% for item in pedidos_ativos %}
+		 		<tr>
+				    <td>{{item.id}}</td>
+				    <td>{{item.servico}}</td>
+				    <td>{{item.observacao}}</td>
+				    <td>R$ {{item.preco}}</td>
+				    <td>{{item.quantidade}}</td>
+				    <td>{{item.data_pedido}}</td>
+				    <td class="text-center">
+				   		<a class="btn btn-primary btn-sm" href="{{ url_for('complete', id=item.id) }}">Concluir</a>
+				   		 | 
+				   		<a class="btn btn-danger btn-sm" href="{{ url_for('delete', id=item.id) }}">Excluir</a>
+				   	</td>
+				</tr>
+				{% endfor %}
+				
+				
+				{% for item in pedidos_concluidos %}
+				<tr>
+				    <td>{{item.id}}</td>
+				    <td>{{item.servico}}</td>
+				    <td>{{item.observacao}}</td>
+				    <td>R$ {{item.preco}}</td>
+				    <td>{{item.quantidade}}</td>
+				    <td>{{item.data_pedido}}</td>
+				    <td class="text-center">Concluído | <a class="btn btn-danger btn-sm" href="{{ url_for('delete', id=item.id) }}">Excluir</a></td>
+				</tr>
+				{% endfor %}
+				
+			</tbody>
+	</table>
+</div>
 
 {% endblock %}
