@@ -4,5 +4,51 @@
 
 {% block content %}
 
+<!--
+	Alterar as rows abaixo para:
+	Seconday >> pedidos em aberto
+	Primary >> pedidos concluidos
+	Danger >> produtos quase no limite
+	Dark >> produtos normais
+
+	Também colocar antes dos cards uma frase com bem-vindo e a data de hoje...
+
+-->
+<div class="row">
+	<div class="card card-accent-secondary mb-3" style="max-width: 18rem;">
+	  <div class="card-header">Header</div>
+	  <div class="card-body">
+	    <h5 class="card-title">Secondary card title</h5>
+	    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>
+	    <a href="#" class="btn btn-primary">Go somewhere</a>
+	  </div>
+	</div>
+
+	<div class="card card-accent-primary mb-3" style="max-width: 18rem;">
+	  <div class="card-header">Header</div>
+	  <div class="card-body">
+	    <h5 class="card-title">Primary card title</h5>
+	    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>
+	  </div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="card card-accent-danger mb-3" style="max-width: 18rem;">
+	  <div class="card-header">Header</div>
+	  <div class="card-body">
+	    <h5 class="card-title">Danger card title</h5>
+	    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>
+	  </div>
+	</div>
+
+	<div class="card card-accent-dark mb-3" style="max-width: 18rem;">
+	  <div class="card-header">Header</div>
+	  <div class="card-body">
+	    <h5 class="card-title">Dark card title</h5>
+	    <p class="card-text">Quick sample text to create the card title and make up the body of the card's content.</p>
+	  </div>
+	</div>
+</div>
 
 {% endblock %}

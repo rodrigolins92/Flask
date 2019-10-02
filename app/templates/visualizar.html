@@ -28,8 +28,7 @@
 				    <td>{{item.data_pedido}}</td>
 				    <td class="text-center">
 				   		<a class="btn btn-primary btn-sm" href="{{ url_for('complete', id=item.id) }}">Concluir</a>
-				   		 | 
-				   		<a class="btn btn-danger btn-sm" href="{{ url_for('delete', id=item.id) }}">Excluir</a>
+				   		<a class="btn btn-danger btn-sm" href="{{ url_for('confirmacao', id=item.id) }}">Excluir</a>
 				   	</td>
 				</tr>
 				{% endfor %}
@@ -43,7 +42,14 @@
 				    <td>R$ {{item.preco}}</td>
 				    <td>{{item.quantidade}}</td>
 				    <td>{{item.data_pedido}}</td>
-				    <td class="text-center">Concluído | <a class="btn btn-danger btn-sm" href="{{ url_for('delete', id=item.id) }}">Excluir</a></td>
+				    <td class="text-center">
+				    	<span>
+				    	Concluído
+				    	</span>
+				    	<span>
+				    	<a class="btn btn-danger btn-sm" href="{{ url_for('confirmacao', id=item.id) }}">Excluir</a>
+				    	</span>
+				    </td>
 				</tr>
 				{% endfor %}
 				
